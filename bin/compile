@@ -25,6 +25,10 @@ if ! [ -e $BUILD_DIR/local/bin/cpanm ]; then
   curl -L --silent https://raw.githubusercontent.com/miyagawa/cpanminus/master/cpanm | perl - App::cpanminus 2>&1 | indent
 fi
 
+if grep -q DBD::Pg cpanfile; then
+    apt update && apt install -y libdbd-pg-perl
+fi
+
 echo "-----> Installing dependencies"
 cpanm --installdeps . 2>&1 | indent
 
